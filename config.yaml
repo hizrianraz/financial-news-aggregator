@@ -1,0 +1,120 @@
+# Financial News Aggregator Configuration
+
+# News Sources Configuration
+sources:
+  bloomberg:
+    enabled: true
+    rss_feeds:
+      # Note: Bloomberg has very limited public RSS feeds
+      # Consider using Bloomberg API with credentials for better access
+      - "https://feeds.bloomberg.com/politics/news.rss"
+      - "https://feeds.bloomberg.com/technology/news.rss"
+      - "https://feeds.bloomberg.com/markets/news.rss"
+    categories:
+      - markets
+      - technology
+      - economics
+    max_articles_per_run: 10
+
+  cnbc:
+    enabled: true
+    rss_feeds:
+      # Updated CNBC RSS feed URLs
+      - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"  # Top News
+      - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=20910258"  # Markets
+      - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910"  # Technology
+    categories:
+      - markets
+      - business
+      - technology
+    max_articles_per_run: 10
+
+  ft:
+    enabled: true
+    base_url: "https://www.ft.com"
+    categories:
+      - markets
+      - companies
+      - technology
+    max_articles_per_run: 10
+
+  wsj:
+    enabled: true
+    rss_feeds:
+      - "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+      - "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
+      - "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml"
+    categories:
+      - markets
+      - business
+      - world
+    max_articles_per_run: 10
+
+  forbes:
+    enabled: true
+    rss_feeds:
+      - "https://www.forbes.com/innovation/feed/"
+      - "https://www.forbes.com/money/feed/"
+      - "https://www.forbes.com/business/feed/"
+    categories:
+      - innovation
+      - money
+      - business
+    max_articles_per_run: 10
+
+# Notification Settings
+notifications:
+  telegram:
+    enabled: true
+    format: "markdown"
+    include_summary: true
+    max_message_length: 4096
+
+  slack:
+    enabled: true
+    format: "blocks"
+    include_summary: true
+    max_message_length: 3000
+
+# Filtering Settings
+filters:
+  # Minimum time between duplicate articles (in hours)
+  duplicate_threshold_hours: 24
+  
+  # Keywords to prioritize
+  priority_keywords:
+    - "breaking"
+    - "urgent"
+    - "exclusive"
+    - "alert"
+  
+  # Keywords to exclude
+  exclude_keywords:
+    - "sponsored"
+    - "advertisement"
+    - "promoted"
+
+# Schedule Settings
+schedule:
+  # Times in UTC
+  run_times:
+    - "06:00"  # 6 AM UTC
+    - "12:00"  # 12 PM UTC
+    - "18:00"  # 6 PM UTC
+    - "22:00"  # 10 PM UTC
+
+# Storage Settings
+storage:
+  # Store processed article IDs to avoid duplicates
+  history_file: "data/processed_articles.json"
+  # Keep history for N days
+  history_retention_days: 7
+
+# Display Settings
+display:
+  # Maximum number of articles per notification
+  max_articles_per_notification: 20
+  # Include article preview
+  include_preview: true
+  # Preview length in characters
+  preview_length: 200 
