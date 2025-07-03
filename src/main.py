@@ -21,6 +21,7 @@ from scrapers.cnbc_scraper import CNBCScraper
 from scrapers.ft_scraper import FTScraper
 from scrapers.wsj_scraper import WSJScraper
 from scrapers.forbes_scraper import ForbesScraper
+from scrapers.economist_scraper import EconomistScraper
 from notifiers.telegram_notifier import TelegramNotifier
 from notifiers.slack_notifier import SlackNotifier
 from utils.article_filter import ArticleFilter
@@ -79,6 +80,9 @@ class NewsAggregator:
             
         if self.config['sources']['forbes']['enabled']:
             scrapers.append(ForbesScraper(self.config['sources']['forbes']))
+            
+        if self.config['sources']['economist']['enabled']:
+            scrapers.append(EconomistScraper(self.config['sources']['economist']))
             
         return scrapers
         

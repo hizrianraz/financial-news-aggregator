@@ -74,6 +74,25 @@ sources:
       - investing
     max_articles_per_run: 15
 
+  economist:
+    enabled: true
+    rss_feeds:
+      - "https://www.economist.com/finance-and-economics/rss.xml"  # Finance & Economics
+      - "https://www.economist.com/business/rss.xml"               # Business
+      - "https://www.economist.com/science-and-technology/rss.xml" # Technology
+      - "https://www.economist.com/united-states/rss.xml"          # US Politics
+      - "https://www.economist.com/international/rss.xml"          # International
+      - "https://www.economist.com/leaders/rss.xml"                # Leaders/Opinion
+      - "https://www.economist.com/briefing/rss.xml"               # Briefings
+    categories:
+      - finance
+      - economics
+      - politics
+      - technology
+      - business
+      - international
+    max_articles_per_run: 15
+
 # Notification Settings
 notifications:
   telegram:
