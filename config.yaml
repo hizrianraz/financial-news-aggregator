@@ -5,62 +5,74 @@ sources:
   bloomberg:
     enabled: true
     rss_feeds:
-      # Note: Bloomberg has very limited public RSS feeds
-      # Consider using Bloomberg API with credentials for better access
+      # Bloomberg RSS feeds focused on our target categories
       - "https://feeds.bloomberg.com/politics/news.rss"
       - "https://feeds.bloomberg.com/technology/news.rss"
       - "https://feeds.bloomberg.com/markets/news.rss"
     categories:
       - markets
       - technology
-      - economics
-    max_articles_per_run: 10
+      - politics
+      - finance
+    max_articles_per_run: 15
 
   cnbc:
     enabled: true
     rss_feeds:
-      # Updated CNBC RSS feed URLs
-      - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"  # Top News
+      # CNBC feeds for markets, tech, and politics
       - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=20910258"  # Markets
       - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910"  # Technology
+      - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000113"  # Politics
+      - "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000115"  # Finance
     categories:
       - markets
-      - business
       - technology
-    max_articles_per_run: 10
+      - politics
+      - finance
+    max_articles_per_run: 15
 
   ft:
     enabled: true
     base_url: "https://www.ft.com"
+    rss_feeds:
+      - "https://www.ft.com/markets?format=rss"
+      - "https://www.ft.com/technology?format=rss"
+      - "https://www.ft.com/companies/financials?format=rss"
+      - "https://www.ft.com/world/us/politics?format=rss"
     categories:
       - markets
-      - companies
       - technology
-    max_articles_per_run: 10
+      - finance
+      - politics
+    max_articles_per_run: 15
 
   wsj:
     enabled: true
     rss_feeds:
       - "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
-      - "https://feeds.a.dj.com/rss/RSSWorldNews.xml"
-      - "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml"
+      - "https://feeds.a.dj.com/rss/RSSFinancialNews.xml"
+      - "https://feeds.a.dj.com/rss/RSSPrivateEquity.xml"
+      - "https://feeds.a.dj.com/rss/RSSCIO.xml"  # Tech/CIO Journal
     categories:
       - markets
-      - business
-      - world
-    max_articles_per_run: 10
+      - finance
+      - technology
+      - private_equity
+    max_articles_per_run: 15
 
   forbes:
     enabled: true
     rss_feeds:
-      - "https://www.forbes.com/innovation/feed/"
-      - "https://www.forbes.com/money/feed/"
-      - "https://www.forbes.com/business/feed/"
+      - "https://www.forbes.com/innovation/feed/"  # Tech & Innovation
+      - "https://www.forbes.com/money/feed/"       # Finance & Money
+      - "https://www.forbes.com/business/feed/"    # Business
+      - "https://www.forbes.com/investing/feed/"   # Investing
     categories:
-      - innovation
-      - money
+      - technology
+      - finance
       - business
-    max_articles_per_run: 10
+      - investing
+    max_articles_per_run: 15
 
 # Notification Settings
 notifications:
@@ -76,32 +88,144 @@ notifications:
     include_summary: true
     max_message_length: 3000
 
-# Filtering Settings
+# Filtering Settings with targeted keywords
 filters:
   # Minimum time between duplicate articles (in hours)
-  duplicate_threshold_hours: 24
+  duplicate_threshold_hours: 12
   
-  # Keywords to prioritize
+  # Keywords to prioritize for our specific categories
   priority_keywords:
+    # Market & Finance
+    - "market"
+    - "stocks"
+    - "bonds"
+    - "forex"
+    - "trading"
+    - "investment"
+    - "IPO"
+    - "merger"
+    - "acquisition"
+    - "earnings"
+    - "federal reserve"
+    - "interest rate"
+    - "inflation"
+    
+    # Politics
+    - "election"
+    - "policy"
+    - "regulation"
+    - "legislation"
+    - "congress"
+    - "senate"
+    - "government"
+    - "political"
+    
+    # Crypto
+    - "crypto"
+    - "bitcoin"
+    - "ethereum"
+    - "blockchain"
+    - "defi"
+    - "NFT"
+    - "cryptocurrency"
+    - "digital asset"
+    - "web3"
+    
+    # Tech & AI
+    - "AI"
+    - "artificial intelligence"
+    - "machine learning"
+    - "tech"
+    - "software"
+    - "startup"
+    - "innovation"
+    - "silicon valley"
+    - "OpenAI"
+    - "Google"
+    - "Microsoft"
+    - "Apple"
+    - "Meta"
+    
+    # Aerospace & Defence
+    - "aerospace"
+    - "defense"
+    - "defence"
+    - "military"
+    - "space"
+    - "SpaceX"
+    - "NASA"
+    - "Boeing"
+    - "Lockheed"
+    - "satellite"
+    - "rocket"
+    
+    # Private Equity
+    - "private equity"
+    - "venture capital"
+    - "VC"
+    - "PE"
+    - "buyout"
+    - "portfolio"
+    - "fund"
+    - "LBO"
+    - "exit"
+    
+    # Breaking news
     - "breaking"
     - "urgent"
     - "exclusive"
     - "alert"
   
-  # Keywords to exclude
+  # Keywords to exclude - remove irrelevant content
   exclude_keywords:
     - "sponsored"
     - "advertisement"
     - "promoted"
+    - "lifestyle"
+    - "entertainment"
+    - "celebrity"
+    - "fashion"
+    - "travel"
+    - "food"
+    - "sports"
+    - "gaming"
+    - "real estate"
+
+  # Required keywords - article must contain at least one
+  required_keywords:
+    - "market"
+    - "finance"
+    - "financial"
+    - "politics"
+    - "political"
+    - "crypto"
+    - "bitcoin"
+    - "blockchain"
+    - "AI"
+    - "artificial intelligence"
+    - "tech"
+    - "technology"
+    - "aerospace"
+    - "defense"
+    - "defence"
+    - "space"
+    - "private equity"
+    - "venture capital"
+    - "investment"
+    - "trading"
+    - "stocks"
+    - "bonds"
 
 # Schedule Settings
 schedule:
-  # Times in UTC
+  # Times in UTC - adjusted for market hours
   run_times:
-    - "06:00"  # 6 AM UTC
-    - "12:00"  # 12 PM UTC
-    - "18:00"  # 6 PM UTC
-    - "22:00"  # 10 PM UTC
+    - "05:00"  # 5 AM UTC (Pre-market US)
+    - "08:00"  # 8 AM UTC (European markets)
+    - "13:00"  # 1 PM UTC (US market open)
+    - "16:00"  # 4 PM UTC (Mid US trading)
+    - "20:00"  # 8 PM UTC (US market close)
+    - "23:00"  # 11 PM UTC (Asia pre-market)
 
 # Storage Settings
 storage:
@@ -113,7 +237,7 @@ storage:
 # Display Settings
 display:
   # Maximum number of articles per notification
-  max_articles_per_notification: 20
+  max_articles_per_notification: 25
   # Include article preview
   include_preview: true
   # Preview length in characters

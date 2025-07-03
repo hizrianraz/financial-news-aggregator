@@ -33,6 +33,11 @@ class ArticleFilter:
                 logger.debug(f"Skipping excluded article: {article['title']}")
                 continue
                 
+            # Check required keywords
+            if not self._contains_required_keywords(article):
+                logger.debug(f"Skipping article without required keywords: {article['title']}")
+                continue
+                
             # Check if article is recent enough
             if not self._is_recent(article):
                 logger.debug(f"Skipping old article: {article['title']}")
@@ -62,6 +67,21 @@ class ArticleFilter:
         text = (article.get('title', '') + ' ' + article.get('description', '')).lower()
         
         for keyword in exclude_keywords:
+            if keyword.lower() in text:
+                return True
+                
+        return False
+        
+    def _contains_required_keywords(self, article: Dict[str, Any]) -> bool:
+        """Check if article contains at least one required keyword"""
+        required_keywords = self.filters.get('required_keywords', [])
+        if not required_keywords:
+            return True  # If no required keywords configured, accept all
+            
+        text = (article.get('title', '') + ' ' + article.get('description', '')).lower()
+        
+        # Check if at least one required keyword is present
+        for keyword in required_keywords:
             if keyword.lower() in text:
                 return True
                 
@@ -99,6 +119,9 @@ class ArticleFilter:
             
         text = (article.get('title', '') + ' ' + article.get('description', '')).lower()
         
+        priority = 0
         for keyword in priority_keywords:
             if keyword.lower() in text:
-                article['priority'] = article.get('priority', 0) + 10 
+                priority += 10
+                
+        article['priority'] = article.get('priority', 0) + priority 
