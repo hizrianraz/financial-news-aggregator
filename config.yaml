@@ -112,6 +112,13 @@ filters:
   # Minimum time between duplicate articles (in hours)
   duplicate_threshold_hours: 12
   
+  # Similarity threshold for duplicate detection (0.0 to 1.0)
+  # Articles with titles more similar than this are considered duplicates
+  similarity_threshold: 0.75
+  
+  # Group similar stories from different sources
+  group_similar_stories: true
+  
   # Keywords to prioritize for our specific categories
   priority_keywords:
     # Market & Finance
