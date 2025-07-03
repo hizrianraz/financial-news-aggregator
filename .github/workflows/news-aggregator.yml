@@ -11,6 +11,10 @@ on:
   # Allow manual trigger
   workflow_dispatch:
 
+# Add permissions for the workflow
+permissions:
+  contents: write
+
 jobs:
   aggregate-news:
     runs-on: ubuntu-latest
